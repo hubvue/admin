@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>管理系统</title>
+    <% include ../public/template/cdn.ejs%>
+    <link rel="stylesheet" type="text/css" href="../public/css/index.css">
+</head>
+
+<body>
+    <div class="container">
+        <header class="row header">
+            <a href="/">退出</a>
+        </header>
+        <main class="row content">
+            <div class="col-md-2 nav">
+                <div class="head-img">
+                    <div class="img-wrap">
+                        <img src="../public/image/head.jpg" alt="">
+                    </div>
+                </div>
+                <div class="login-wrap">
+                    <span class="user">
+                        <%= mini.name%>
+                    </span>
+                    <span class="user">
+                        <%= mini.title%>
+                    </span>
+                </div>
+                <ul>
+                    <li id="member-manage">员工管理</li>
+                    <li id="member-evaluate">员工评分</li>
+                </ul>
+            </div>
+            <div class="col-md-10 list">
+                <div class="member-list">
+                    <div class="list-nav">
+                        <div class="list-nav-name">员工管理</div>
+                        <div class="list-add-member" id="add-member">
+                            <span></span>
+                            添加员工信息
+                        </div>
+                    </div>
+                    <ul class="member-list-ul">
+                        <li class="member-name row">
+                            <div class="col-md-2">工号</div>
+                            <div class="col-md-2">姓名</div>
+                            <div class="col-md-1">性别</div>
+                            <div class="col-md-2">职务</div>
+                            <div class="col-md-2">部门</div>
+                            <div class="col-md-3">操作</div>
+                        </li>
+                        <% member.forEach(item => { %>
+                        <li class="member-message row">
+                            <div class="col-md-2">
+                                <%= item.num%>
+                            </div>
+                            <div class="col-md-2">
+                                <%= item.name%>
+                            </div>
+                            <div class="col-md-1">
+                                <%= item.sex%>
+                            </div>
+                            <div class="col-md-2">
+                                <%= item.post%>
+                            </div>
+                            <div class="col-md-2">
+                                <%= item.department%>
+                            </div>
+                            <div class="col-md-3 oper flex input">
+                                <span class="edit"></span>
+                                <span class="delete"></span>
+                            </div>
+                        </li>
+                        <%})%>
+                    </ul>
+                </div>
+                <div class="member-list none">
+                    <div class="list-nav">
+                        <div class="list-nav-name">员工评分</div>
+                        <!-- <div class="list-add-member">
+                            <span></span>
+                            检索员工信息
+                        </div> -->
+                    </div>
+                    <ul class="member-list-ul">
+                        <li class="member-name row">
+                            <div class="col-md-2">工号</div>
+                            <div class="col-md-2">姓名</div>
+                            <!-- <div class="col-md-4">交流能力</div>
+                            <div class="col-md-4">组织能力</div> -->
+                            <div class="col-md-8">操作</div>
+                        </li>
+                        <% member.forEach( item => { %>
+                            <li class="member-message row">
+                                <div class="row assess-message">
+                                    <div class="col-md-2">
+                                        <%= item.num%>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <%=item.name%>
+                                    </div>
+                                    <div class="col-md-8  assess-wrap">
+                                        <% if(item.Communication == null ||item.organization == null ) { %>
+                                            <a href="javascript:void(0);" class="assess">评分</a>
+                                        <% } else { %>
+                                            <a href="javascript:void(0);" class="assess">查看评分</a>
+                                        <% }%>
+                                    </div>
+                                </div>
+                                <div class="assess-contentrow row none">
+                                    <div class="row">
+                                        <div class="col-sm-5">交流能力</div>
+                                        <div class="col-sm-5">组织能力</div>
+                                        <div class="col-sm-2">提交</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-5 assess-oper">
+                                            <div class="flex oper">
+                                                <% if(item.Communication == "A"){ %>
+                                                    <label><input type="radio" name="<%=item.num%>-2" id="" value="A" checked="checked">A</label>
+                                                    <label><input type="radio" name="<%=item.num%>-2" id="" value="B">B</label>
+                                                    <label><input type="radio" name="<%=item.num%>-2" id="" value="C">C</label>
+                                                    <label><input type="radio" name="<%=item.num%>-2" id="" value="D">D</label>
+                                                <% } else if (item.Communication == "B"){ %>
+                                                    <label><input type="radio" name="<%=item.num%>-2" id="" value="A">A</label>
+                                                    <label><input type="radio" name="<%=item.num%>-2" id="" value="B" checked="checked">B</label>
+                                                    <label><input type="radio" name="<%=item.num%>-2" id="" value="C">C</label>
+                                                    <label><input type="radio" name="<%=item.num%>-2" id="" value="D">D</label>
+                                                <% } else if(item.Communication == "C"){ %>
+                                                    <label><input type="radio" name="<%=item.num%>-2" id="" value="A">A</label>
+                                                    <label><input type="radio" name="<%=item.num%>-2" id="" value="B">B</label>
+                                                    <label><input type="radio" name="<%=item.num%>-2" id="" value="C" checked="checked">C</label>
+                                                    <label><input type="radio" name="<%=item.num%>-2" id="" value="D">D</label>
+                                                <% } else if(item.Communication == "D") { %>
+                                                    <label><input type="radio" name="<%=item.num%>-2" id="" value="A">A</label>
+                                                    <label><input type="radio" name="<%=item.num%>-2" id="" value="B">B</label>
+                                                    <label><input type="radio" name="<%=item.num%>-2" id="" value="C">C</label>
+                                                    <label><input type="radio" name="<%=item.num%>-2" id="" value="D" checked="checked">D</label>
+                                                <% } else { %>
+                                                    <label><input type="radio" name="<%=item.num%>-2" id="" value="A">A</label>
+                                                    <label><input type="radio" name="<%=item.num%>-2" id="" value="B">B</label>
+                                                    <label><input type="radio" name="<%=item.num%>-2" id="" value="C">C</label>
+                                                    <label><input type="radio" name="<%=item.num%>-2" id="" value="D">D</label>
+                                                <% }%>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5 assess-oper">
+                                            <div class="flex oper">
+                                                <% if(item.organization == "A"){ %>
+                                                    <label><input type="radio" name="<%=item.num%>-1" id="" value="A" checked="checked">A</label>
+                                                    <label><input type="radio" name="<%=item.num%>-1" id="" value="B">B</label>
+                                                    <label><input type="radio" name="<%=item.num%>-1" id="" value="C">C</label>
+                                                    <label><input type="radio" name="<%=item.num%>-1" id="" value="D">D</label>
+                                                <% } else if (item.organization == "B"){ %>
+                                                    <label><input type="radio" name="<%=item.num%>-1" id="" value="A">A</label>
+                                                    <label><input type="radio" name="<%=item.num%>-1" id="" value="B" checked="checked">B</label>
+                                                    <label><input type="radio" name="<%=item.num%>-1" id="" value="C">C</label>
+                                                    <label><input type="radio" name="<%=item.num%>-1" id="" value="D">D</label>
+                                                <% } else if(item.organization == "C"){ %>
+                                                    <label><input type="radio" name="<%=item.num%>-1" id="" value="A">A</label>
+                                                    <label><input type="radio" name="<%=item.num%>-1" id="" value="B">B</label>
+                                                    <label><input type="radio" name="<%=item.num%>-1" id="" value="C" checked="checked">C</label>
+                                                    <label><input type="radio" name="<%=item.num%>-1" id="" value="D">D</label>
+                                                <% } else if(item.organization == "D") { %>
+                                                    <label><input type="radio" name="<%=item.num%>-1" id="" value="A">A</label>
+                                                    <label><input type="radio" name="<%=item.num%>-1" id="" value="B">B</label>
+                                                    <label><input type="radio" name="<%=item.num%>-1" id="" value="C">C</label>
+                                                    <label><input type="radio" name="<%=item.num%>-1" id="" value="D" checked="checked">D</label>
+                                                <% } else { %>
+                                                    <label><input type="radio" name="<%=item.num%>-1" id="" value="A">A</label>
+                                                    <label><input type="radio" name="<%=item.num%>-1" id="" value="B">B</label>
+                                                    <label><input type="radio" name="<%=item.num%>-1" id="" value="C">C</label>
+                                                    <label><input type="radio" name="<%=item.num%>-1" id="" value="D">D</label>
+                                                <% }%>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2 submit-assess">
+                                            <a href="javascript:void(0);" class="submit-assess-btn">提交</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </li>
+                        <%})%>
+                    </ul>
+
+                    <!-- <div class="evaluate">
+                        <button type="button" class="btn btn-primary" id="submit-evaluate">提交</button>
+                    </div> -->
+                </div>
+
+            </div>
+        </main>
+        <footer class="row footer">
+
+        </footer>
+    </div>
+    <div id="insert">
+        <div class="insert-content">
+            <span id="close"></span>
+            <div class="row flex input ">
+                <span>工号：</span>
+                <input type="text" name="" value="" placeholder="请输入账号" id="insert-num">
+            </div>
+            <div class="row flex input">
+                <span>姓名：</span>
+                <input type="text" name="" value="" placeholder="请输入姓名" id="insert-name">
+            </div>
+            <div class="row flex input">
+                <span>性别：</span>
+                <input type="text" name="" value="" placeholder="请输入性别" id="insert-sex">
+            </div>
+            <div class="row flex input">
+                <span>职务：</span>
+                <input type="text" name="" value="" placeholder="请输入职务" id="insert-post">
+            </div>
+            <div class="row flex input">
+                <span>部门：</span>
+                <input type="text" name="" value="" placeholder="请输入部门" id="insert-department">
+            </div>
+            <div class="row">
+                <button type="button" class="btn btn-primary" id="insert-btn">提交</button>
+                <span id="insert-member-error"></span>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="../public/js/index.js" charset="utf-8" type="text/javascript"></script>
+
+</html>
