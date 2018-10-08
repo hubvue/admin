@@ -3,7 +3,13 @@ const mysql = require("mysql");
 const fs = require("fs");
 // const excel = require("./constroller/excel");
 const urlencodeParser = bodyParser.urlencoded({extended: false});
-const connection = mysql.createConnection({host: "localhost", user: "root", password: "123456", database: "message"})
+const connection = mysql.createConnection({
+    host: "39.105.106.168",
+    user: "root",
+    password: "goaway0806",
+    database: "message",
+    port : 3306,
+})
 const route = (app) => {
     app.get("/", (req, res) => {
         res.render("login");
